@@ -107,7 +107,6 @@
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
       function initAutocomplete() {
         var infoWindow;
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -125,8 +124,27 @@
         map.addListener('bounds_changed', function() {
           searchBox.setBounds(map.getBounds());
         });
-
+        var geocoder = new google.maps.Geocoder();    
         var markers = [];
+        var locations = []
+        {% for a in hospital_info %}
+        geocoder.geocode( { 'address': "{{a.3}}"}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+        var infowindow = new google.maps.InfoWindow({
+            content: '<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">' + "{{ a.1 }}" + '</h1><br>'+
+            "{{a.2}}" + '<br>' + "{{a.3}}" + '<br>' + "{{a.5}}" + '<br> <b>Rating out of 5:</b>'+ "{{a.6}}" + "<a href=''>Learn more<a>"
+          });
+          infowindow.open(map, marker);
+       }
+      });
+
+        {% endfor %}
+
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', function() {
@@ -135,13 +153,6 @@
           if (places.length == 0) {
             return;
           }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
           // For each place, get the icon, name and location.
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
@@ -174,7 +185,6 @@
           });
           map.fitBounds(bounds);
         });
-      infoWindow = new google.maps.InfoWindow;
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -192,7 +202,9 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
-
+      marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
@@ -200,13 +212,17 @@
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBs0ehT55gwNQR4SVW3vS30PBc7banRJ1U&libraries=places&callback=initAutocomplete"
          async defer>
     </script>
     <div class = "container">
       <h1>Nearby hospitals</h1>
-      <p>{{ hospital_list }}</p>
+      <hr/>
+      <h1>About Hospital Compendium</h1>
+      <h2>Rationale</h2>
+      <par>Maintaining one's health which includes having regular check-ups and seeking treatment when necessary is an integral part to have a long and prosperous life. </par>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

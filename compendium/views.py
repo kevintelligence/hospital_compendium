@@ -25,7 +25,7 @@ def details(request):
     for a in c:
         hospital_info = [a.idnum, a.name, a.address, a.phonenumber, a.hospitaltype, a.emergency, a.meetcriteria, a.overallrating, a.mortalitycomparison, a.safetycomparison, a.readmissioncomparison, a.experiencecomparison, a.effectivenesscomparison, a.timelinesscomparison, a.imagingcomparison]
     
-    hospital_info.append(Hospital.objects.raw('''SELECT starrating AS summarystar FROM patientsatisfaction WHERE question = "Summary star rating" AND id = ".key" ''').summarystar)
+    hospital_info.append(Hospital.objects.raw('''SELECT starrating AS summarystar FROM patientsatisfaction WHERE question LIKE "Summary star rating" AND id = ''' + key)[0].summarystar)
     hospital_info.append(Hospital.objects.raw('''SELECT starrating AS cleanlinessstar FROM patientsatisfaction WHERE question = "Cleanliness - star rating" AND id = .key ''').cleanlinessstar)
     hospital_info.append(Hospital.objects.raw('''SELECT starrating AS nursestar  FROM patientsatisfaction WHERE question = "Nurse communication - star rating" AND id = .key ''').nursestar)
     hospital_info.append(Hospital.objects.raw('''SELECT starrating AS doctorstar FROM patientsatisfaction WHERE question = ""Doctor communication - star rating AND id = .key ''').doctorstar)
@@ -134,14 +134,3 @@ def details(request):
         'a' : hospital_info
     }
     return HttpResponse(template.render(context, request))
-
-
-
-
-
-
-
-
-
-
-

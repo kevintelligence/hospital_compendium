@@ -94,7 +94,7 @@
     </style>
   </head>
   <body>
-      <nav class="navbar sticky-top navbar-dark bg-primary">
+      <nav class="navbar sticky-top navbar-dark bg-primary" style = "#003f87">
           <center><a class="navbar-brand" href="index.html"><h1>Hospital Compendium</h1></a></center>
         </nav>
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
@@ -137,7 +137,7 @@
         });
         var infowindow = new google.maps.InfoWindow({
             content: '<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">' + "{{ a.1 }}" + '</h1><br>'+
-            "{{a.2}}" + '<br>' + "{{a.3}}" + '<br>' + "{{a.5}}" + '<br> <b>Rating out of 5:</b>'+ "{{a.6}}" + "<a href=''>Learn more<a>"
+            "{{a.2}}" + '<br>' + "{{a.3}}" + '<br>' + '<br> <b>Rating out of 5: ' + "{{a.5}}" + '</b>'+ "{{a.6}}" + "<br><a href='details.html?idnum={{a.0}}'>Learn more<a>"
           });
           infowindow.open(map, marker);
        }
@@ -218,11 +218,12 @@
          async defer>
     </script>
     <div class = "container">
-      <h1>Nearby hospitals</h1>
-      <hr/>
       <h1>About Hospital Compendium</h1>
       <h2>Rationale</h2>
-      <par>Maintaining one's health which includes having regular check-ups and seeking treatment when necessary is an integral part to have a long and prosperous life. </par>
+Recently, many news stories have surfaced discussing anecdotes of patients being significantly over-charged for medical operations or being shocked by the high cost of their bill. According to a survey by NORC at the University of Chicago, 57% of respondents were shocked to receive a bill they thought their insurance would pay for. The study also found 53% of respondents surprised of having to pay an exorbitant amount of money to pay for physician services, 51% of respondents were surprised for paying large amounts for laboratory tests laboratory tests, and 35% of respondents were astounded for receiving unexpected bills for imaging services. Originally, I believed that to support this community unaware of or unprepared for these high medical costs, the best way to inform them would to make such information accessible by creating a platform where patients could share the costs for individual medical services to better inform the platform's community, providing patients some leverage when negotiating a bill and in some ways democratizing medicine. However, this idea presented issues of patient confidentiality and privacy due to HIPAA, variance in patient conditions that could have influenced costs, ambiguity in medical bills on what each item corresponding to, and moderating the platform to promote legitimate statements and illegitimate ones. Instead, recalling my work in a mathematical modeling competition ranking different hospitals, I decided to create a platform that compiles hospital quality and pricing information that users can use to not only evaluate the facilities, care, and price of their local healthcare facilities, but also know how the local facilities compare to that across the country. People of diverse backgrounds must seek healthcare in some form, and by becoming more knowledgeable of it both locally and across the country, we can collaborate to petition for a fairer and fitter healthcare system.
+
+      <h2>Purpose</h2>
+Simply, Hospital Compendium is a platform that allows users to easily search for local hospitals and learn about the prices and quality of its services. Users can search for local hospitals and see the prices for the same four common procedures, which could potentially be used as a normalized metric to compare relative prices across other local hospitals. Additionally, the platform also provides users with information on areas such as the results of surveys on patient satisfaction and the incidence rates of complications and death of certain circumstances. Armed with the knowledge of studies of patient satisfaction, the frequency of complications, and the relative prices between each hospital, users can have the necessary information to select the perfect hospital for their needs without being overwhelmed with information.
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

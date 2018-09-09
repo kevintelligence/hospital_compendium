@@ -27,6 +27,7 @@ class Hospital(models.Model):
     staffstar = models.CharField
     communicationstar = models.CharField
     dischargestar = models.CharField
+    carestarstar = models.CharField
     overallstar = models.CharField
     quietnessstar = models.CharField
     recommendationstar = models.CharField
@@ -127,3 +128,8 @@ class Hospital(models.Model):
     heartfailurevalue = models.TextField
     hipkneevalue = models.TextField
     pneumoniavalue = models.TextField
+
+    heartattackcomparison = models.TextField
+    heartfailurecomparison = models.TextField
+    hipkneecomparison = models.TextField
+    pneumoniacomparison = models.TextField

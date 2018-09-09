@@ -18,13 +18,12 @@ def index(request):
 def details(request):
     try:
         key = request.GET['idnum']
-        print(key)
     except():
         b = True
-    c= Hospital.objects.raw('''SELECT id AS idnum, name AS name,  CONCAT(address, ' ', city, ' ', state, ' ', zipcode) AS address, phonenumber AS phonenumber, hospitaltype AS hospitaltype, emergency AS emergency, criteria AS meetcriteria, overallrating AS overallrating, mortalitycomparison AS mortalitycomparison, safetycomparison AS safetycomparison, readmissioncomparison AS readmissioncomparison, patientexperiencecomparison AS experiencecomparison, effectivenesscomparison AS effectivenesscomparison, timelinesscomparison AS timelinesscomparison, efficientimagingcomparison AS imagingcomparison FROM general WHERE id = .key.''')
+    c= Hospital.objects.raw('''SELECT id AS idnum, name AS name,  CONCAT(address, ' ', city, ' ', state, ' ', zipcode) AS address, phonenumber AS phonenumber, hospitaltype AS hospitaltype, emergency AS emergency, criteria AS meetcriteria, overallrating AS overallrating, mortalitycomparison AS mortalitycomparison, safetycomparison AS safetycomparison, readmissioncomparison AS readmissioncomparison, patientexperiencecomparison AS experiencecomparison, effectivenesscomparison AS effectivenesscomparison, timelinesscomparison AS timelinesscomparison, efficientimagingcomparison AS imagingcomparison FROM general WHERE id = ''' + key)
     hospital_info = []
     for a in c:
-        hospital_info = [a.idnum, a.name, a.address, a.phonenumber, a.hospitaltype, a.emergency, a.meetcriteria, a.overallrating, a.mortalitycomparison, a.safetycomparison, a.readmissioncomparis, a.experiencecomparison, a.effectivenesscomparison, a.timelinesscomparison, a.medicalimagingcomparison]
+        hospital_info = [a.idnum, a.name, a.address, a.phonenumber, a.hospitaltype, a.emergency, a.meetcriteria, a.overallrating, a.mortalitycomparison, a.safetycomparison, a.readmissioncomparison, a.experiencecomparison, a.effectivenesscomparison, a.timelinesscomparison, a.imagingcomparison]
     
     hospital_info.append(Hospital.objects.raw('''SELECT starrating AS summarystar FROM patientsatisfaction WHERE question = "Summary star rating" AND id = ".key" ''').summarystar)
     hospital_info.append(Hospital.objects.raw('''SELECT starrating AS cleanlinessstar FROM patientsatisfaction WHERE question = "Cleanliness - star rating" AND id = .key ''').cleanlinessstar)

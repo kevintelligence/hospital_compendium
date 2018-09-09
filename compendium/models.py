@@ -17,7 +17,7 @@ class Hospital(models.Model):
     experiencecomparison = models.CharField
     effectivenesscomparison = models.CharField
     timelinesscomparison = models.CharField
-    medicalimagingcomparison = models.CharField
+    imagingcomparison = models.CharField
 
     # Patient Satisfaction
     summarystar = models.CharField
